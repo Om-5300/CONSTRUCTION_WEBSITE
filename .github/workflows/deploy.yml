@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # or use "master" if your branch is named master
+      - main
 
 jobs:
   deploy:
@@ -12,9 +12,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup Git user
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./          # folder to deploy (your current folder)
-          publish_branch: gh-pages # deployment branch
+          publish_dir: ./
+          publish_branch: gh-pages
